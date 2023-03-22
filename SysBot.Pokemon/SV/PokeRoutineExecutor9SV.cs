@@ -14,6 +14,8 @@ namespace SysBot.Pokemon
     public abstract class PokeRoutineExecutor9SV : PokeRoutineExecutor<PK9>
     {
         protected PokeDataOffsetsSV Offsets { get; } = new();
+        public int PrevOption { get; private set; }
+
         protected PokeRoutineExecutor9SV(PokeBotState cfg) : base(cfg)
         {
         }
@@ -145,7 +147,79 @@ namespace SysBot.Pokemon
 
         public async Task ReOpenGame(PokeTradeHubConfig config, CancellationToken token)
         {
+        
             await CloseGame(config, token).ConfigureAwait(false);
+            int arrayLimit = 5;
+            Log("prev" + PrevOption);
+            /*for (int i = 0; i < arrayLimit; i++)
+            {
+                if (i == PrevOption && i !=arrayLimit) {
+                    for (int j = 0; j<=i; j++) {
+                        await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                    }
+                    PrevOption = PrevOption + 1;
+                }
+            }
+            */
+           
+
+            if (PrevOption == 0)
+            {
+                Log("Opening JKSV");
+                await Click(A, 5000, token).ConfigureAwait(false);
+                await Click(A, 1000, token).ConfigureAwait(false);
+                await PressAndHold(R, 5000,5000, token).ConfigureAwait(false);
+                await Click(DRIGHT, 2500, token).ConfigureAwait(false);
+                await Click(DRIGHT, 2500, token).ConfigureAwait(false);
+                await Click(DRIGHT, 2500, token).ConfigureAwait(false);
+                await Click(A, 5000, token).ConfigureAwait(false);
+                Log("Selecting save");
+
+                await Click(A, 2500, token).ConfigureAwait(false);
+                await Click(A, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(Y, 5000, token).ConfigureAwait(false);
+                await PressAndHold(A, 5000,5000, token).ConfigureAwait(false);
+                await Click(HOME, 2500, token).ConfigureAwait(false);
+                await Click(X, 2500, token).ConfigureAwait(false);
+                await Click(A, 2500, token).ConfigureAwait(false);
+
+
+
+                PrevOption = 1;
+            }
+            else {
+                Log("Opening JKSV");
+
+
+                Log("Opening JKSV");
+                await Click(A, 5000, token).ConfigureAwait(false);
+                await Click(A, 1000, token).ConfigureAwait(false);
+                await PressAndHold(R, 5000, 5000, token).ConfigureAwait(false);
+                await Click(DRIGHT, 2500, token).ConfigureAwait(false);
+                await Click(DRIGHT, 2500, token).ConfigureAwait(false);
+                await Click(DRIGHT, 2500, token).ConfigureAwait(false);
+                await Click(A, 5000, token).ConfigureAwait(false);
+                Log("Selecting save");
+
+                await Click(A, 2500, token).ConfigureAwait(false);
+                await Click(A, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(DDOWN, 2500, token).ConfigureAwait(false);
+                await Click(Y, 5000, token).ConfigureAwait(false);
+                await PressAndHold(A, 5000, 5000, token).ConfigureAwait(false);
+                await Click(HOME, 2500, token).ConfigureAwait(false);
+                await Click(X, 2500, token).ConfigureAwait(false);
+                await Click(A, 2500, token).ConfigureAwait(false);
+
+                PrevOption = 0;
+            }
             await StartGame(config, token).ConfigureAwait(false);
         }
 
